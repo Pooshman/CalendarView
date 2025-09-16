@@ -12,7 +12,8 @@ import Foundation
 
 struct MCalendar {
     static var startDate: Date = .now.start(of: .month)
-    static var endDate: Date = .distantFuture.end(of: .month)
+    // PERFORMANCE FIX: Limit to 12 months instead of distant future
+    static var endDate: Date = Calendar.current.date(byAdding: .month, value: 12, to: .now) ?? .now
     static var firstWeekday: MWeekday = .monday
     static var locale: Locale = .autoupdatingCurrent
     private static var _calendar: Calendar = .init(identifier: .gregorian)

@@ -23,8 +23,9 @@ struct MonthView: View {
             ForEach(data.items, id: \.last, content: createSingleRow)
         }
         .frame(maxWidth: .infinity)
-        .animation(animation, value: selectedDate)
-        .animation(animation, value: selectedRange?.getRange())
+        // Remove expensive animations that trigger on every date change
+        // .animation(animation, value: selectedDate)
+        // .animation(animation, value: selectedRange?.getRange())
     }
 }
 private extension MonthView {
@@ -36,7 +37,8 @@ private extension MonthView {
 }
 private extension MonthView {
     func createDayView(_ date: Date) -> some View {
-        config.dayView(date, isCurrentMonth(date), $selectedDate, $selectedRange).erased()
+        // Remove .erased() call to reduce type erasure overhead
+        config.dayView(date, isCurrentMonth(date), $selectedDate, $selectedRange)
     }
 }
 private extension MonthView {

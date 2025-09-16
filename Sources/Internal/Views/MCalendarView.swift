@@ -31,7 +31,8 @@ public struct MCalendarView: View {
 }
 private extension MCalendarView {
     func createWeekdaysView() -> some View {
-        configData.weekdaysView().erased()
+        // Remove .erased() to reduce type erasure overhead
+        configData.weekdaysView()
     }
     func createScrollView() -> some View { ScrollViewReader { reader in
         ScrollView(showsIndicators: false) {
@@ -57,7 +58,6 @@ private extension MCalendarView {
 private extension MCalendarView {
     func createMonthLabel(_ month: Date) -> some View {
         configData.monthLabel(month)
-            .erased()
             .onAppear { onMonthChange(month) }
     }
     func createMonthView(_ data: Data.MonthView) -> some View {
