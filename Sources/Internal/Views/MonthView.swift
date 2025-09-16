@@ -37,8 +37,7 @@ private extension MonthView {
 }
 private extension MonthView {
     func createDayView(_ date: Date) -> some View {
-        // Remove .erased() call to reduce type erasure overhead
-        config.dayView(date, isCurrentMonth(date), $selectedDate, $selectedRange)
+        config.dayView(date, isCurrentMonth(date), $selectedDate, $selectedRange).erased()
     }
 }
 private extension MonthView {
